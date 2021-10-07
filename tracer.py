@@ -1,12 +1,15 @@
 from Funciones.math import *
 from Funciones.utilities import *
 from Funciones.characters import *
+from Funciones.material import *
 from math import pi,tan
 
 class Raytracer(object):
     def __init__(self):
         self.default_color = color(0,0,139)
         self.cl_color = BLACK
+        self.background_color = BLACK
+        self.scene  = []
 
     def point(self, x, y):
         self.framebuffer[y][x] =self.default_color
@@ -35,7 +38,23 @@ class Raytracer(object):
 
 
     def cast_ray(self,origin,direction):
-        return color(0,0,255)
+        material = self.scene_intersect(origin,direction)
+        if material:
+
+            return material.diffuse
+        else:
+            return self.background_color
+
+    def scene_intersect(self,origin,direction):
+        zbuffer = float('inf')
+        material = None
+        for obj in self.scene:
+            intersect = obj.ray_intersect(origin,direction)
+            if intersect is not None:
+                if intersect.distance  < zbuffer:
+                    zbuffer = intersect.distance
+                    material = obj.material
+        return material
 
     def render(self):
         fov = pi/2

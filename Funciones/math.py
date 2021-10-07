@@ -1,6 +1,5 @@
 from collections import namedtuple
-
-V3 = namedtuple("Point3D",['x','y','z'])
+from Funciones.utilities import *
 
 def cross(v0,v1):
         cx = v0.y*v1.z-v0.z*v1.y
