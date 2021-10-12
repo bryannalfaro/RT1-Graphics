@@ -9,6 +9,7 @@ class Raytracer(object):
         self.default_color = color(0,0,139)
         self.cl_color = BLACK
         self.background_color = BLACK
+        self.light = None
         self.scene  = []
 
     def point(self, x, y):
@@ -38,23 +39,29 @@ class Raytracer(object):
 
 
     def cast_ray(self,origin,direction):
-        material = self.scene_intersect(origin,direction)
-        if material:
+        material, intersect = self.scene_intersect(origin,direction)
 
-            return material.diffuse
+        if material is not None:
+            light_dir = norm(sub(self.light.position,intersect.point))
+            intensity = self.light.intensity * max(0,dot(light_dir,intersect.normal))
+            diffuse = material.diffuse*intensity*material.albedo[0]
+            c = diffuse
+            return c
         else:
             return self.background_color
 
     def scene_intersect(self,origin,direction):
         zbuffer = float('inf')
         material = None
+        intersect = None
         for obj in self.scene:
-            intersect = obj.ray_intersect(origin,direction)
-            if intersect is not None:
-                if intersect.distance  < zbuffer:
-                    zbuffer = intersect.distance
+            r_intersect = obj.ray_intersect(origin,direction)
+            if r_intersect is not None:
+                if r_intersect.distance  < zbuffer:
+                    zbuffer = r_intersect.distance
                     material = obj.material
-        return material
+                    intersect = r_intersect
+        return material,intersect
 
     def render(self):
         fov = pi/2

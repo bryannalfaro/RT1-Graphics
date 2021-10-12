@@ -11,6 +11,12 @@ def cross(v0,v1):
 def sub(v0,v1):
     return V3(v0.x-v1.x,v0.y-v1.y,v0.z-v1.z)
 
+def sum(v0,v1):
+    return V3(v0.x+v1.x,v0.y+v1.y,v0.z+v1.z)
+
+def mul(v0,c):
+    return V3(v0.x*c,v0.y*c,v0.z*c)
+
 def length(v0):
     return (v0.x**2+v0.y**2+v0.z**2)**0.5
 
