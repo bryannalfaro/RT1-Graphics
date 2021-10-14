@@ -1,19 +1,6 @@
 from Funciones.math import *
 from Funciones.characters import *
-class V3(object):
-    def __init__(self, x, y, z=None):
-        self.x = x
-        self.y = y
-        self.z = z
-    def __getitem__(self,i):
-        if i == 0:
-            return self.x
-        elif i == 1:
-            return self.y
-        elif i == 2:
-            return self.z
-    def __repr__(self):
-        return 'V3(%s, %s, %s)' % (self.x,self.y,self.z)
+
 
 def ccolor(color):
     return max(0,min(255,int(color)))
@@ -51,11 +38,20 @@ class color(object):
 
         return color(r,g,b)
 
+    def __add__(self, b_color):
+        r = self.r + b_color.r
+        g = self.g + b_color.g
+        b = self.b + b_color.b
+        return color(r,g,b)
+
     def tolist(self):
         return color(self.r,self.g,self.b)
 
 BLACK = color(0,0,0)
 WHITE = color(255,255,255)
+
+def reflect(I,N):
+    return norm(sub(I,mul(N,2*dot(I,N))))
 
 def barycentric(A,B,C,P):
         cx,cy,cz = cross(V3(B.x-A.x,C.x-A.x,A.x-P.x),V3(B.y-A.y,C.y-A.y,A.y-P.y))

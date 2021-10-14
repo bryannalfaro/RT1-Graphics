@@ -7,10 +7,10 @@ r = Raytracer()
 r.glCreateWindow(1000,1000)
 r.glClear()
 
-ivory = Material(diffuse=color(100,100,80),albedo=[0.9])
-rubber = Material(diffuse=color(80,0,0),albedo=[0.6])
+ivory = Material(diffuse=color(100,100,80),albedo=[0.6,0.3],spec=50)
+rubber = Material(diffuse=color(80,0,0),albedo=[0.9,0.1],spec=10)
 
-r.light = Light(V3(10,10,10),intensity=1.5)
+r.light = Light(V3(-20,-20,20),intensity=2,color=color(255,255,200))
 
 r.scene = [
   Sphere(V3(0, -1.5, -10), 1.5, ivory),

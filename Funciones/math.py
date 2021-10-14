@@ -1,5 +1,20 @@
 from collections import namedtuple
-from Funciones.utilities import *
+
+
+class V3(object):
+    def __init__(self, x, y, z=None):
+        self.x = x
+        self.y = y
+        self.z = z
+    def __getitem__(self,i):
+        if i == 0:
+            return self.x
+        elif i == 1:
+            return self.y
+        elif i == 2:
+            return self.z
+    def __repr__(self):
+        return 'V3(%s, %s, %s)' % (self.x,self.y,self.z)
 
 def cross(v0,v1):
         cx = v0.y*v1.z-v0.z*v1.y

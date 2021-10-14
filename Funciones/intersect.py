@@ -5,6 +5,7 @@ class Intersect(object):
         self.normal = normal
 
 class Light(object):
-    def __init__(self,position,intensity):
+    def __init__(self,position,intensity,color):
         self.position = position
         self.intensity = intensity
+        self.color = color

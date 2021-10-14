@@ -42,10 +42,31 @@ class Raytracer(object):
         material, intersect = self.scene_intersect(origin,direction)
 
         if material is not None:
+
             light_dir = norm(sub(self.light.position,intersect.point))
-            intensity = self.light.intensity * max(0,dot(light_dir,intersect.normal))
-            diffuse = material.diffuse*intensity*material.albedo[0]
-            c = diffuse
+            light_distance = length(sub(self.light.position,intersect.point))
+
+            offset_normal = mul(intersect.normal,0.1)
+            shadow_orig = sum(intersect.point,offset_normal) if dot(light_dir,intersect.normal)>0 else sub(intersect.point,offset_normal)
+            shadow_material, shadow_intersect = self.scene_intersect(shadow_orig,light_dir)
+
+
+            if shadow_material is None or length(sub(shadow_intersect.point,shadow_orig)) > light_distance:
+                shadow_intensity = 0
+            else:
+                shadow_intensity = 0.9
+
+            diffuse_intensity = self.light.intensity * max(0,dot(light_dir,intersect.normal)) * (1-shadow_intensity)
+
+            if shadow_intensity > 0:
+                specular_intensity = 0
+            else:
+                reflection = reflect(light_dir,intersect.normal)
+                specular_intensity = self.light.intensity*(max(0,dot(reflection,direction))**material.spec)
+
+            diffuse = material.diffuse*diffuse_intensity*material.albedo[0]
+            specular = self.light.color * specular_intensity * material.albedo[1]
+            c = diffuse + specular
             return c
         else:
             return self.background_color
