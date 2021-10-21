@@ -12,7 +12,6 @@ class Plane(object):
 
 
     def ray_intersect(self, origin,direction):
-        epsilon = 1e-6
 
         if(dot(direction, self.normalCoordinates))>epsilon:
             t = dot(self.normalCoordinates,sub(self.pos,origin))/dot(direction,self.normalCoordinates)

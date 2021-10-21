@@ -1,5 +1,6 @@
 from collections import namedtuple
 
+epsilon =  1e-6
 
 class V3(object):
     def __init__(self, x, y, z=None):

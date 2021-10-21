@@ -21,19 +21,18 @@ def get_planes(position,sizebox,normals,material):
     return planos
 
 def get_min_bounds(position,sizebox):
-    Boundmin = [0,0,0]
-    epsilon =  1e-6
-    Boundmin[0] = position[0] - (epsilon + sizebox[0]/2)
-    Boundmin[1] = position[1] - (epsilon + sizebox[1]/2)
-    Boundmin[2] = position[2] - (epsilon + sizebox[2]/2)
+    Boundmin = []
+
+    Boundmin.append(position[0] - (epsilon + sizebox[0]/2))
+    Boundmin.append(position[1] - (epsilon + sizebox[1]/2))
+    Boundmin.append(position[2] - (epsilon + sizebox[2]/2))
 
     return Boundmin
 
 def get_max_bounds(position,sizebox):
-    Boundmax = [0,0,0]
-    epsilon =  1e-6
-    Boundmax[0] = position[0] + (epsilon + sizebox[0]/2)
-    Boundmax[1] = position[1] + (epsilon + sizebox[1]/2)
-    Boundmax[2] = position[2] + (epsilon + sizebox[2]/2)
+    Boundmax = []
+    Boundmax.append(position[0] + (epsilon + sizebox[0]/2))
+    Boundmax.append(position[1] + (epsilon + sizebox[1]/2))
+    Boundmax.append(position[2] + (epsilon + sizebox[2]/2))
 
     return Boundmax

@@ -33,10 +33,13 @@ class Cube(object):
                 td = planeHit.distance
                 hit = planeHit
 
-    if hit is None:
-        return None
+    if hit is not None:
+        return Intersect(
+        distance = hit.distance,
+        point = hit.point,
+        normal = hit.normal)
+    else:
+      return None
 
-    return Intersect(
-    distance = hit.distance,
-    point = hit.point,
-    normal = hit.normal)
+
+
