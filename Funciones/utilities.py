@@ -53,6 +53,22 @@ WHITE = color(255,255,255)
 def reflect(I,N):
     return norm(sub(I,mul(N,2*dot(I,N))))
 
+def refract(I,N,refractive_index):
+    cosi = -max(-1,min(1,dot(I,N)))
+    etai = 1
+    etat = refractive_index
+
+    if cosi< 0:
+        cosi = -cosi
+        etai,etat = etat,etai
+        N = mul(N,-1)
+
+    eta = etai/etat
+    k = 1-eta**2*(1-cosi**2)
+    if k<0:
+        return None
+    return norm(sum(mul(I,eta),mul(N,eta*cosi+k**0.5)))
+
 def barycentric(A,B,C,P):
         cx,cy,cz = cross(V3(B.x-A.x,C.x-A.x,A.x-P.x),V3(B.y-A.y,C.y-A.y,A.y-P.y))
         if cz ==0:
