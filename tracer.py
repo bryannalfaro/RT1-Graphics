@@ -85,11 +85,16 @@ class Raytracer(object):
                 specular_reflection = reflect(light_dir,intersect.normal)
                 specular_intensity = self.light.intensity*(max(0,-dot(specular_reflection,direction))**material.spec)
 
+            #print(material.diffuse,diffuse_intensity, material.albedo[0])
             diffuse = material.diffuse*diffuse_intensity*material.albedo[0]
             specular = self.light.color * specular_intensity * material.albedo[1]
             reflection = reflect_color * material.albedo[2]
 
             refraction = refract_color * material.albedo[3]
+
+            if material.texture and intersect.texture is not None:
+                t_color = material.texture.get_color(intersect.texture[0],intersect.texture[1])
+                diffuse = t_color*255
 
             c = diffuse + specular + reflection + refraction
             return c

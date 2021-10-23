@@ -67,18 +67,24 @@ class Triangle(object):
         edge1 = sub(self.vert2,self.vert1)
         vp1 = sub(P,self.vert1)
         C = cross(edge1,vp1)
+        u = dot(N,C)
 
-        if(dot(N,C)<0):
+        if(u<0):
             return None
 
         edge2 = sub(self.vert0,self.vert2)
         vp2 = sub(P,self.vert2)
         C = cross(edge2,vp2)
-        if(dot(N,C)<0):
+        v = dot(N,C)
+        if(v<0):
             return None
+
+        u = u / denom
+        v = v / denom
 
         return Intersect(
             distance = D,
             point = P,
-            normal = N
+            normal = N,
+            texture = (u,v)
         )

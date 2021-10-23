@@ -1,7 +1,7 @@
 from collections import namedtuple
 
 epsilon =  1e-6
-
+PI = 3.1416
 class V3(object):
     def __init__(self, x, y, z=None):
         self.x = x
