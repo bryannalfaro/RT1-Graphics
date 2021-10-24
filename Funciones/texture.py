@@ -4,7 +4,7 @@ from Funciones.utilities import color
 class Texture(object):
     def __init__(self,path):
         self.path = path
-        self.pixels = []
+        self.framebuffer = []
         self.read()
 
     def read(self):
@@ -18,15 +18,15 @@ class Texture(object):
         image.seek(header_size)
 
         for y in range(self.height):
-            self.pixels.append([])
+            self.framebuffer.append([])
             for x in range(self.width):
                 b= ord(image.read(1))/255
                 g= ord(image.read(1))/255
                 r= ord(image.read(1))/255
-                self.pixels[y].append(color(r,g,b))
+                self.framebuffer[y].append(color(r,g,b))
         image.close()
 
     def get_color(self,tx,ty):
         x = round(tx*self.width)-1
         y = round(ty*self.height)-1
-        return self.pixels[y][x]
+        return self.framebuffer[y][x]

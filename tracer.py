@@ -15,6 +15,7 @@ class Raytracer(object):
         self.background_color = WHITE
         self.light = None
         self.scene = []
+        self.environment = None
 
     def point(self, x, y):
         self.framebuffer[y][x] = self.default_color
@@ -42,6 +43,8 @@ class Raytracer(object):
         material, intersect = self.scene_intersect(origin, direction)
 
         if material is None or recursion>=MAX_RECURSION_DEPTH:
+            if self.environment:
+                return self.environment.get_color(direction)
             return self.background_color
         else:
             light_dir = norm(sub(self.light.position,intersect.point))

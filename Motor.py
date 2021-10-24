@@ -5,6 +5,7 @@ from Funciones.utilities import *
 from Funciones.cube import *
 from Funciones.triangle import *
 from Funciones.texture import *
+from Funciones.environment import *
 
 
 r = Raytracer()
@@ -51,6 +52,6 @@ r.scene = [
   Sphere(V3(1, 1, -8), 1.7, rubber),
   Sphere(V3(-3, 3, -10), 2, mirror),
 ]'''
-
+r.environment = Env('./salidas/1sky.bmp')
 r.render()
 r.glFinish("./salidas/output.bmp")
