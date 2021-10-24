@@ -7,13 +7,13 @@ from Funciones.intersect import *
 class Plane(object):
     def __init__(self,  pos, normalCoordinates,material):
         self.pos = pos
-        self.normalCoordinates = normalCoordinates
+        self.normalCoordinates = norm(normalCoordinates)
         self.material = material
 
 
     def ray_intersect(self, origin,direction):
 
-        if(dot(direction, self.normalCoordinates))>epsilon:
+        if(abs(dot(direction, self.normalCoordinates)))>epsilon:
             t = dot(self.normalCoordinates,sub(self.pos,origin))/dot(direction,self.normalCoordinates)
             if t > 0:
                 # p + t * v

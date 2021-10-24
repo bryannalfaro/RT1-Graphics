@@ -51,7 +51,7 @@ BLACK = color(0,0,0)
 WHITE = color(255,255,255)
 
 def reflect(I,N):
-    return norm(sub(I,mul(N,2*dot(I,N))))
+    return norm(sub(mul(I,-1),mul(N,2*dot(mul(I,-1),N))))
 
 def refract(I,N,refractive_index):
     cosi = -max(-1,min(1,dot(I,N)))

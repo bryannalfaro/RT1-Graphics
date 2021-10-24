@@ -11,11 +11,11 @@ class Cube(object):
     self.sizebox = sizebox
     self.material = material
     self.normals = get_normals()
-    self.planos = get_planes(position,sizebox,self.normals,material)
+    self.planos = get_planes(self.position,self.sizebox,self.normals,material)
 
 
   def ray_intersect(self, origin, direction):
-    Boundmin = get_min_bounds(self.position,self.sizebox)
+    Boundmin = get_Boundmin(self.position,self.sizebox)
     Boundmax = get_max_bounds(self.position,self.sizebox)
 
     td = float('inf')
@@ -32,12 +32,15 @@ class Cube(object):
               if planeHit.distance < td:
                 td = planeHit.distance
                 hit = planeHit
+                t_cube = get_texture(plane,planeHit,Boundmin,Boundmax)
+
 
     if hit is not None:
         return Intersect(
         distance = hit.distance,
         point = hit.point,
-        normal = hit.normal)
+        normal = hit.normal,
+        texture=t_cube,)
     else:
       return None
 

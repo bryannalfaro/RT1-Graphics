@@ -31,15 +31,15 @@ class Sphere(object):
         hit = sum(origin,mul(direction,t0))
         normal = norm(sub(hit,self.center))
 
-        theta = atan2(normal[0],normal[2])
-        phi = acos(normal[1]/self.radius)
-        rawU = theta/(2*PI)
-        u = 1-(rawU+0.5)
-        v = 1-phi/PI
+        #theta = atan2(normal[0],normal[2])
+        #phi = acos(normal[1]/self.radius)
+        #rawU = theta/(2*PI)
+        #u = 1-(rawU+0.5)
+        #v = 1-phi/PI
 
         return Intersect(
             distance = t0,
             normal = normal,
             point = hit,
-            texture = (u,v)
+
         )
