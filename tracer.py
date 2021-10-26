@@ -2,8 +2,10 @@ from Funciones.math import *
 from Funciones.utilities import *
 from Funciones.characters import *
 from Funciones.material import *
-from math import pi, tan
+from math import pi, tan,cos,sin
 from random import random
+from Funciones.obj import *
+from Funciones.triangle import *
 
 MAX_RECURSION_DEPTH = 3
 
@@ -16,6 +18,7 @@ class Raytracer(object):
         self.light = None
         self.scene = []
         self.environment = None
+        self.texture = None
 
     def point(self, x, y):
         self.framebuffer[y][x] = self.default_color
@@ -38,6 +41,98 @@ class Raytracer(object):
             self.default_color = color(r, g, b)
         except:
             self.default_color = color(int(r*255), int(g*255), int(b*255))
+
+    def load(self, filename, movement, scale,rotate):
+        self.loadModelMatrix(movement,scale,rotate)
+        model = Obj(filename)
+
+        vertex_buffer_object = []
+        for face in (model.faces):
+            for v in range(len(face)):
+                vertex = self.transform(V3(*model.vertices[face[v][0]-1]))
+                vertex_buffer_object.append(vertex)
+            if self.texture:
+                for v in range(len(face)):
+                    tvertex =(V3(*model.tvertices[face[v][1]-1]))
+                    vertex_buffer_object.append(tvertex)
+            for v in range(len(face)):
+                vertex = (V3(*model.nvertices[face[v][2]-1]))
+                vertex_buffer_object.append(vertex)
+
+        self.active_vertex_array = iter(vertex_buffer_object)
+
+    def transform(self,v):
+        augmented_vertex = [
+            [v.x],
+            [v.y],
+            [v.z],
+            [1]
+        ]
+
+        transformed_vertex = self.Model  * Matrix(augmented_vertex)
+
+        transformed_vertex = [
+            (transformed_vertex[0][0][0]/transformed_vertex[0][3][0]),
+            (transformed_vertex[0][1][0]/transformed_vertex[0][3][0]),
+            (transformed_vertex[0][2][0]/transformed_vertex[0][3][0]),
+        ]
+        return V3(*transformed_vertex)
+
+    def loadModelMatrix(self,movement,scale,rotate):
+        movement = V3(*movement)
+        scale = V3(*scale)
+        rotate = V3(*rotate)
+
+        translation_matrix = Matrix([[1,0,0,movement.x],[0,1,0,movement.y],[0,0,1,movement.z],[0,0,0,1]])
+
+        a  = rotate.x
+        rotation_matrix_x = Matrix([[1,0,0,0],[0,cos(a),-sin(a),0],[0,sin(a),cos(a),0],[0,0,0,1]])
+        a = rotate.y
+        rotation_matrix_y = Matrix([[cos(a),0,sin(a),0],[0,1,0,0],[-sin(a),0,cos(a),0],[0,0,0,1]])
+        a = rotate.z
+        rotation_matrix_z = Matrix([[cos(a),-sin(a),0,0],[sin(a),cos(a),0,0],[0,0,1,0],[0,0,0,1]])
+
+        rotation_matrix = rotation_matrix_x * rotation_matrix_y * rotation_matrix_z
+        scale_matrix = Matrix([[scale.x,0,0,0],[0,scale.y,0,0],[0,0,scale.z,0],[0,0,0,1]])
+        self.Model =  translation_matrix * rotation_matrix * scale_matrix
+
+
+    def draw_arrays(self,polygon):
+        self.polygon = polygon
+        if polygon == 'WIREFRAME':
+            pass
+        elif polygon == 'TRIANGLES':
+            try:
+                while True:
+                    self.triangle()
+            except StopIteration:
+                print('Done')
+
+                print(len(self.scene))
+
+
+
+    def triangle(self):
+
+            A = next(self.active_vertex_array)
+            B = next(self.active_vertex_array)
+            C = next(self.active_vertex_array)
+
+
+            if self.texture:
+                tA = next(self.active_vertex_array)
+                tB = next(self.active_vertex_array)
+                tC = next(self.active_vertex_array)
+
+            nA = next(self.active_vertex_array)
+            nB = next(self.active_vertex_array)
+            nC = next(self.active_vertex_array)
+            ivory = Material(diffuse=color(100,100,80),albedo=[0.6,0.3,0.1,0],spec=50)
+            rubber = Material(diffuse=color(80,0,0),albedo=[0.9,0.1,0.0,0],spec=50,refractive_index=0)
+            print('add')
+            self.scene.append(Triangle(A,B,C,ivory))
+
+
 
     def cast_ray(self, origin, direction, recursion=0):
         material, intersect = self.scene_intersect(origin, direction)

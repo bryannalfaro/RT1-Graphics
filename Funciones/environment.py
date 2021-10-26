@@ -21,7 +21,7 @@ class Env(object):
 
         for y in range(self.height):
             self.pixels.append([])
-            for x in range(self.width):
+            for _ in range(self.width):
                 b= ord(image.read(1))
                 g= ord(image.read(1))
                 r= ord(image.read(1))

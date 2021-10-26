@@ -67,7 +67,7 @@ def refract(I,N,refractive_index):
     k = 1-eta**2*(1-cosi**2)
     if k<0:
         return None
-    return norm(sum(mul(I,eta),mul(N,eta*cosi+k**0.5)))
+    return norm(sum(mul(I,eta),mul(N,eta*cosi-k**0.5)))
 
 def barycentric(A,B,C,P):
         cx,cy,cz = cross(V3(B.x-A.x,C.x-A.x,A.x-P.x),V3(B.y-A.y,C.y-A.y,A.y-P.y))

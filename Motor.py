@@ -9,7 +9,7 @@ from Funciones.environment import *
 
 
 r = Raytracer()
-r.glCreateWindow(800,800)
+r.glCreateWindow(100,100)
 r.glClear()
 
 ivory = Material(diffuse=color(100,100,80),albedo=[0.6,0.3,0.1,0],spec=50)
@@ -17,10 +17,14 @@ rubber = Material(diffuse=color(80,0,0),albedo=[0.9,0.1,0.0,0],spec=50,refractiv
 mirror = Material(diffuse=color(255,255,255),albedo=[0,10,0.8,0],spec=1500)
 glass = Material(diffuse=color(150,180,200),albedo=[0,0.5,0.1,0.8],spec=150,refractive_index=1.5)
 water = Material(diffuse=color(51, 83, 152), albedo=[0.6, 0.3, 0.1, 0], spec=64, refractive_index=1.35)
-fut = Material(texture=Texture('./salidas/spin.bmp'))
+fut = Material(texture=Texture('./salidas/d9b.bmp'))
+
 
 r.light = Light(V3(-20,-10,20),intensity=2,color=color(255,255,255))
-
+#r.light = Light(V3(-20,-10,20),intensity=2,color=color(255,255,255))
+#r.load('./salidas/wolf.obj',(0,-3,-22),(0.2,0.2,0.2),(pi,pi/2,0))
+#r.draw_arrays('TRIANGLES')
+'''
 r.scene = [
     #Sphere(V3(0, -1.5, -10), 1.5, ivory),
     Sphere(V3(0, -2, -3), 0.5, rubber),
@@ -34,7 +38,12 @@ r.scene = [
 
     Cube(V3(0, 2, -2), 3, water),
     Cube(V3(-1, -1, -3), 0.5 , fut)
-]
+]'''
+
+#r.scene.append(Sphere(V3(0, -2, -3), 0.5, rubber))
+r.scene.append(Cube(V3(0, 2, -2), 3, water))
+
+#r.scene.append(Cube(V3(-1, -1, -3), 0.5 , fut))
 '''
 PRUEBAAA
 Cube(V3(-5, 6, -10) , [5,5,5], rubber), #mirror
@@ -52,6 +61,7 @@ r.scene = [
   Sphere(V3(1, 1, -8), 1.7, rubber),
   Sphere(V3(-3, 3, -10), 2, mirror),
 ]'''
+r.scene.append(Triangle(V3(-1,-3,-3),V3(1,-3,-3),V3(0,0,-3),ivory))
 r.environment = Env('./salidas/1sky.bmp')
 r.render()
-r.glFinish("./salidas/output.bmp")
+r.glFinish("./salidas/output1.bmp")
