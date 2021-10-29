@@ -97,22 +97,23 @@ class Raytracer(object):
         self.Model =  translation_matrix * rotation_matrix * scale_matrix
 
 
-    def draw_arrays(self,polygon):
+    def draw_arrays(self,polygon,material):
         self.polygon = polygon
         if polygon == 'WIREFRAME':
             pass
         elif polygon == 'TRIANGLES':
             try:
                 while True:
-                    self.triangle()
+                    self.triangle(material)
             except StopIteration:
                 print('Done')
+                #self.scene=self.scene[0:100]
 
-                print(len(self.scene))
+                #print(len(self.scene))
 
 
 
-    def triangle(self):
+    def triangle(self,material):
 
             A = next(self.active_vertex_array)
             B = next(self.active_vertex_array)
@@ -130,7 +131,7 @@ class Raytracer(object):
             ivory = Material(diffuse=color(100,100,80),albedo=[0.6,0.3,0.1,0],spec=50)
             rubber = Material(diffuse=color(80,0,0),albedo=[0.9,0.1,0.0,0],spec=50,refractive_index=0)
             print('add')
-            self.scene.append(Triangle(A,B,C,ivory))
+            self.scene.append(Triangle(A,B,C,material))
 
 
 
