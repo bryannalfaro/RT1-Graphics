@@ -9,7 +9,7 @@ from Funciones.environment import *
 
 
 r = Raytracer()
-r.glCreateWindow(100,100)
+r.glCreateWindow(800,600)
 r.glClear()
 
 ivory = Material(diffuse=color(100,100,80),albedo=[0.6,0.3,0.1,0],spec=50)
@@ -26,8 +26,8 @@ skin = Material(texture=Texture('./salidas/a.bmp'))
 
 r.light = Light(V3(-20,-20,20),intensity=2,color=color(255,255,255))
 #r.light = Light(V3(-20,-10,20),intensity=2,color=color(255,255,255))
-#r.load('./salidas/wolf.obj',(-2,2,-4),(0.02,0.02,0.02),(pi,pi/2,0))
-#r.draw_arrays('TRIANGLES',skin)
+r.load('./salidas/wolf.obj',(-2,2,-4),(0.02,0.02,0.02),(pi,pi/2,0))
+r.draw_arrays('TRIANGLES',skin)
 '''
 r.scene = [
     #Sphere(V3(0, -1.5, -10), 1.5, ivory),
@@ -68,7 +68,7 @@ r.scene.append(Cube(V3(-0.4, -1.5, -2.5), 1, tree))
 
 #triangulo tree
 r.scene.append(Cube(V3(-2, -0.1, -3), 1, wood))
-r.scene.append(Cube(V3(-2, -0.8, -3), 1, wood))
+r.scene.append(Cube(V3(-2, -1, -3), 1, wood))
 r.scene.append(Triangle(V3(-5,-2,-4),V3(-3,-4,-4),V3(-1,-2,-4),tree))
 #good r.scene.append(Triangle(V3(-1,-2,-4),V3(0,-4,-4),V3(1,-2,-4),tree))
 #r.scene.append(Triangle(V3(-1,-4,-4),V3(1,-5,-4),V3(2,-3,-4),fut))
