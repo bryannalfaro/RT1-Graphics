@@ -1,3 +1,11 @@
+'''
+Universidad del Valle de Guatemala
+Graficas por computadora
+Proyecto Raytracer
+Bryann Alfaro 19372
+
+Referencia general> Clases de Dennis y proyecto 1.
+'''
 from Funciones.math import *
 from Funciones.intersect import *
 from math import atan2,acos
@@ -30,12 +38,6 @@ class Sphere(object):
 
         hit = sum(origin,mul(direction,t0))
         normal = norm(sub(hit,self.center))
-
-        #theta = atan2(normal[0],normal[2])
-        #phi = acos(normal[1]/self.radius)
-        #rawU = theta/(2*PI)
-        #u = 1-(rawU+0.5)
-        #v = 1-phi/PI
 
         return Intersect(
             distance = t0,

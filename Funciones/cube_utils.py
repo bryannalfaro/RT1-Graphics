@@ -1,6 +1,15 @@
+'''
+Universidad del Valle de Guatemala
+Graficas por computadora
+Proyecto Raytracer
+Bryann Alfaro 19372
+
+Referencia general> Clases de Dennis y proyecto 1.
+'''
 from Funciones.math import *
 from Funciones.plane import *
 from Funciones.material import *
+
 def get_normals():
     normals = []
     normals.append(V3(1,0,0))
@@ -47,17 +56,6 @@ def get_texture(plane,planeHit,Boundmin,Boundmax):
     divx = Boundmax[0]-Boundmin[0]
     divy = Boundmax[1]-Boundmin[1]
     divz = Boundmax[2]-Boundmin[2]
-    '''if abs(plane.normalCoordinates[2]) > 0:
-        u = (planeHit.point[0] - Boundmin[0]) / (divx)
-        v = (planeHit.point[1] - Boundmin[1]) / (divy)
-
-    elif abs(plane.normalCoordinates[1]) > 0:
-        u = (planeHit.point [0] - Boundmin[0]) / (divx)
-        v = (planeHit.point [2] - Boundmin[2]) / (divz)
-
-    elif abs(plane.normalCoordinates[0]) > 0:
-        u = (planeHit.point [1] - Boundmin[1]) / (divy)
-        v = (planeHit.point [2] - Boundmin[2]) / (divz)'''
 
     if abs(plane.normalCoordinates[2]) > 0:
         u = (Boundmax[0] - planeHit.point[0]) / (divx)

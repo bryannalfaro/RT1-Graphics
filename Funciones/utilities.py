@@ -1,3 +1,11 @@
+'''
+Universidad del Valle de Guatemala
+Graficas por computadora
+Proyecto Raytracer
+Bryann Alfaro 19372
+
+Referencia general> Clases de Dennis y proyecto 1.
+'''
 from Funciones.math import *
 from Funciones.characters import *
 
@@ -79,6 +87,9 @@ def barycentric(A,B,C,P):
         w = 1-(cx+cy)/cz
 
         return w,v,u
+
+def op():
+    return (2 * PI) + 0.5
 
 def bbox(A,B,C):
     xs = [A.x, B.x, C.x,]

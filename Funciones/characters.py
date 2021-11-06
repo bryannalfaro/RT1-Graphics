@@ -1,3 +1,11 @@
+'''
+Universidad del Valle de Guatemala
+Graficas por computadora
+Proyecto Raytracer
+Bryann Alfaro 19372
+
+Referencia general> Clases de Dennis y proyecto 1.
+'''
 import struct
 
 def char(c):

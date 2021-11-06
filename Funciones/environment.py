@@ -1,6 +1,15 @@
+'''
+Universidad del Valle de Guatemala
+Graficas por computadora
+Proyecto Raytracer
+Bryann Alfaro 19372
+
+Referencia general> Clases de Dennis y proyecto 1.
+'''
 import struct
 from math import atan2,acos,pi
 from Funciones.utilities import color
+from Funciones.utilities import op
 
 class Env(object):
     def __init__(self,path):
@@ -30,7 +39,7 @@ class Env(object):
 
     def get_color(self,direction):
 
-       #Formula get from Github of Dennis
-       x = int( (atan2( direction.z, direction.x) / (2 * pi) + 0.5) * self.width)
+       #Formula implemented from Github of Dennis
+       x = int( (atan2( direction.z, direction.x) / op()) * self.width)
        y = int( acos(-direction.y) / pi * self.height )
        return self.pixels[y][x]
