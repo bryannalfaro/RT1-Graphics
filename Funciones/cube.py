@@ -27,7 +27,7 @@ class Cube(object):
     Boundmax = get_max_bounds(self.position,self.sizebox)
 
     td = float('inf')
-    hit = None
+    hit_p = None
 
     for plane in self.planos:
       planeHit = plane.ray_intersect(origin, direction)
@@ -39,15 +39,15 @@ class Cube(object):
             if planeHit.point[2] >= Boundmin[2] and planeHit.point[2] <= Boundmax[2]:
               if planeHit.distance < td:
                 td = planeHit.distance
-                hit = planeHit
+                hit_p = planeHit
                 t_cube = get_texture(plane,planeHit,Boundmin,Boundmax)
 
 
-    if hit is not None:
+    if hit_p is not None:
         return Intersect(
-        distance = hit.distance,
-        point = hit.point,
-        normal = hit.normal,
+        distance = hit_p.distance,
+        point = hit_p.point,
+        normal = hit_p.normal,
         texture=t_cube,)
     else:
       return None

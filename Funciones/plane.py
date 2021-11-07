@@ -22,13 +22,13 @@ class Plane(object):
     def ray_intersect(self, origin,direction):
 
         if(abs(dot(direction, self.normalCoordinates)))>epsilon:
-            t = dot(self.normalCoordinates,sub(self.pos,origin))/dot(direction,self.normalCoordinates)
-            if t > 0:
+            distance_t = dot(self.normalCoordinates,sub(self.pos,origin))/dot(direction,self.normalCoordinates)
+            if distance_t > 0:
                 # p + t * v
-                hit = sum(origin,mul(direction,t))
+                hit = sum(origin,mul(direction,distance_t))
 
                 return Intersect(
-                    distance = t,
+                    distance = distance_t,
                     normal = self.normalCoordinates,
                     point = hit
                 )
